@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import {useState, useEffect} from 'react'
 import { Form, Row } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'
@@ -33,18 +32,11 @@ export const Loginscreen = () => {
     const submitHandler = async (e) =>{
         e.preventDefault()
         try {
-            // const data = axios.post('http://localhost:8000/api/users/auth', {email, password})
-            // console.log(data.result)
-            // if(data){
-            //     dispatch(setCredentials(data))
-            //     toast.success('Login Success')
-            //     navigate('/')
-            // }
             const result = await login({email, password}).unwrap()
             if(result){
                 dispatch(setCredentials(result))
                 toast.success('Login Success')
-                navigate('/')
+                navigate('/dashboard')
             }
             else{
                 console.log(result)
@@ -60,7 +52,7 @@ export const Loginscreen = () => {
     return (
         <FormContainer>
             <h1>Sign In</h1>
-            <Form onSubmit={submitHandler}>
+            <Form onSubmit={submitHandler} >
                 <Form.Group className='my-2' controlId='email'>
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control type='email' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
