@@ -1,0 +1,13 @@
+.body{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    display: block;
+    margin-left: 40vw;
+    margin-top: 30vh;
+    font-size: 20px;
+}
+
