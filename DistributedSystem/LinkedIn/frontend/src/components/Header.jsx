@@ -6,7 +6,7 @@ import { useLogoutMutation } from "../slices/usersApiSlice";
 import {logout} from "../slices/authslice";
 import {useNavigate} from "react-router-dom";
 import { toast } from "react-toastify";
-import { Profilescreen } from "../screens/Profilescreen";
+import Notification from "./Notification";
 
 const Header = () => {
     const userInfo = useSelector(state => state.auth.userInfo)
@@ -49,12 +49,13 @@ const Header = () => {
             </Nav>
             <Nav className="ms-auto my-2 my-lg-0" navbarScroll>
                 {userInfo ? (
+                    <>
+                    <Notification/>
                     <NavDropdown title={userInfo.name} id="username">
                         <NavDropdown.Item onClick={profileHandler}><Badge bg="success">{userInfo.name}</Badge></NavDropdown.Item>
                         <NavDropdown.Item onClick = {logoutHandler}><FaSignOutAlt/> Logout</NavDropdown.Item>
-                        {/* <LinkContainer to="/profile"><NavDropdown.Item>Profile</NavDropdown.Item></LinkContainer> */}
-                        {/* <LinkContainer><NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item></LinkContainer> */}
                     </NavDropdown>
+                    </>
                 ) : (
                 <>
                 <LinkContainer to="/login"><Nav.Link><FaSignInAlt/> Login</Nav.Link></LinkContainer>

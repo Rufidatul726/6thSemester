@@ -1,5 +1,3 @@
-
-
 import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema({
@@ -11,6 +9,11 @@ const postSchema = mongoose.Schema({
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    authorName: {
+        type: mongoose.Schema.Types.String,
         ref: 'User',
         required: true
     },

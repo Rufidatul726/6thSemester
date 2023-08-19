@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import * as minio from "minio";
+import { Server } from "socket.io";
+import { createServer } from "http";
 
 dotenv.config();
 
@@ -17,6 +19,35 @@ import postRoutes from "./routes/postRoutes.js";
 connectDB();
 
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, { 
+    cors: {
+        origin: "http://localhost:3000",
+    }
+ });
+
+io.on("connection", (socket) => {
+    console.log("a user connected");
+    socket.on("disconnect", () => {
+        console.log("user disconnected");
+    });
+    // socket.on("join", (room) => {
+    //     console.log("joined room", room);
+    //     socket.join(room);
+    // });
+    // socket.on("leave", (room) => {
+    //     console.log("left room", room);
+    //     socket.leave(room);
+    // });
+    // socket.on("notification", (notification) => {
+    //     console.log("notification", notification);
+    //     socket.to(notification.user).emit("notification", notification);
+    // });
+    // socket.on("message", (message) => {
+    //     console.log("message", message);
+    //     socket.to(message.room).emit("message", message);
+    // });
+});
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -57,5 +88,5 @@ app.get("/", (req, res) => {res.send("Server is ready");});
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(port, () => {console.log(`Serve at http://localhost:${port}`);});
+httpServer.listen(port, () => {console.log(`Serve at http://localhost:${port}`);});
 

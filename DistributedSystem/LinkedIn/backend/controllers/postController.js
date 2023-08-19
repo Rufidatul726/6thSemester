@@ -7,9 +7,17 @@ import { minioClient } from "../server.js";
 //@access   Public
 
 const getPosts = asyncHandler(async (req, res) => {
-    console.log(req.body);
-    const posts = await Post.find({})
-    console.log(posts);
+    const posts = await Post.find({});
+    res.json(posts);
+    }
+);
+
+//@desc     Get all posts except loggedin user
+//@route    GET /api/posts/createdby/:id
+//@access   Private
+
+const getPostsExceptLoggedInUser = asyncHandler(async (req, res) => {
+    const posts = await Post.find({createdBy: {$ne: req.params.id}});
     res.json(posts);
     }
 );
@@ -20,26 +28,40 @@ const getPosts = asyncHandler(async (req, res) => {
 
 const createPost = asyncHandler(async (req, res) => {
     const {content } = req.body;
-    const postImage = req.file;
-    const user = req.user
-    minioClient.fPutObject(process.env.MINIO_BUCKET_NAME, req.file.originalname, req.file.path, function(err, etag) {
-        if (err) return console.log(err)
-        console.log('File uploaded successfully.')
-    });
+    const user = req.user._id;
+    const author = req.user.name;
+    const image = null;
+    if(req.file){
+        minioClient.fPutObject(process.env.MINIO_BUCKET_NAME, req.file.originalname, req.file.path, function(err, etag) {
+            if (err) return console.log(err)
+            console.log('File uploaded successfully.')
+        });
 
-    const image = `${req.file.originalname}`;
+        image = `${req.file.originalname}`;
+    }
+    if(!content && !image){
+        res.status(400).json({message : "Please fill all fields"});
+    }
     const post = await Post.create({
         content,
         image, 
-        createdBy: user
+        createdBy: user,
+        authorName: author
     });
-    console.log(user);
+    console.log(post);
     if(post){
+        await Notification.create({
+            user: user,
+            post: post._id,
+            type: "post",
+            message: `${author} created a post `
+        });
         res.status(201).json({
             _id: post._id,
             content: post.content,
             postImage: post.image,
-            user: post.user
+            user: post.user,
+            authorName: post.authorName
         });
     }else{
         res.status(400).json({message : "Invalid post data"});
@@ -61,4 +83,4 @@ const getPostById = asyncHandler(async (req, res) => {
 }
 );
 
-export { getPosts, createPost, getPostById };
+export { getPosts, createPost, getPostById , getPostsExceptLoggedInUser};
