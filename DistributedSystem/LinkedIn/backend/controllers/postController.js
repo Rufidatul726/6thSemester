@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Post from "../models/postModel.js";
+import Notification from "../models/notificationModel.js";
 import { minioClient } from "../server.js";
 
 //@desc     Get all posts
@@ -30,7 +31,8 @@ const createPost = asyncHandler(async (req, res) => {
     const {content } = req.body;
     const user = req.user._id;
     const author = req.user.name;
-    const image = null;
+    let image = null;
+    console.log(req.file);
     if(req.file){
         minioClient.fPutObject(process.env.MINIO_BUCKET_NAME, req.file.originalname, req.file.path, function(err, etag) {
             if (err) return console.log(err)
@@ -51,8 +53,8 @@ const createPost = asyncHandler(async (req, res) => {
     console.log(post);
     if(post){
         await Notification.create({
-            user: user,
-            post: post._id,
+            postId: post._id,
+            createdBy: user,
             type: "post",
             message: `${author} created a post `
         });

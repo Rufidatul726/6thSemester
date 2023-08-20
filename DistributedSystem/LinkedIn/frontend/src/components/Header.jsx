@@ -50,7 +50,9 @@ const Header = () => {
             <Nav className="ms-auto my-2 my-lg-0" navbarScroll>
                 {userInfo ? (
                     <>
-                    <Notification/>
+                    <NavDropdown title="Notifications" id="notifications">
+                        <NavDropdown.Item><Notification/></NavDropdown.Item>
+                    </NavDropdown>
                     <NavDropdown title={userInfo.name} id="username">
                         <NavDropdown.Item onClick={profileHandler}><Badge bg="success">{userInfo.name}</Badge></NavDropdown.Item>
                         <NavDropdown.Item onClick = {logoutHandler}><FaSignOutAlt/> Logout</NavDropdown.Item>

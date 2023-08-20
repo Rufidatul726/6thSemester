@@ -3,8 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import * as minio from "minio";
-import { Server } from "socket.io";
-import { createServer } from "http";
+
 
 dotenv.config();
 
@@ -15,39 +14,12 @@ const port = process.env.PORT || 5000;
 
 import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 
 connectDB();
 
 const app = express();
-const httpServer = createServer(app);
-const io = new Server(httpServer, { 
-    cors: {
-        origin: "http://localhost:3000",
-    }
- });
 
-io.on("connection", (socket) => {
-    console.log("a user connected");
-    socket.on("disconnect", () => {
-        console.log("user disconnected");
-    });
-    // socket.on("join", (room) => {
-    //     console.log("joined room", room);
-    //     socket.join(room);
-    // });
-    // socket.on("leave", (room) => {
-    //     console.log("left room", room);
-    //     socket.leave(room);
-    // });
-    // socket.on("notification", (notification) => {
-    //     console.log("notification", notification);
-    //     socket.to(notification.user).emit("notification", notification);
-    // });
-    // socket.on("message", (message) => {
-    //     console.log("message", message);
-    //     socket.to(message.room).emit("message", message);
-    // });
-});
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -81,6 +53,7 @@ minioClient.bucketExists(process.env.MINIO_BUCKET_NAME, function(err, exists) {
 
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 
 app.get("/", (req, res) => {res.send("Server is ready");});
@@ -88,5 +61,5 @@ app.get("/", (req, res) => {res.send("Server is ready");});
 app.use(notFound);
 app.use(errorHandler);
 
-httpServer.listen(port, () => {console.log(`Serve at http://localhost:${port}`);});
+app.listen(port, () => {console.log(`Serve at http://localhost:${port}`);});
 
