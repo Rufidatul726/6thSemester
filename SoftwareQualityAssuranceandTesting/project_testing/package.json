@@ -1,6 +1,35 @@
 {
+  "name": "calcify",
+  "version": "1.0.0",
+  "description": "Calcify is a versatile set of mathematical functions and utilities to assist in solving numeric problems. Whether it's finding factorials or identifying prime numbers, Calcify provides a seamless environment to explore and apply fundamental mathematical operations.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "author": "Rufidatul Radium",
+  "license": "MIT",
+  "keywords": [
+    "math",
+    "mathematics",
+    "calcify",
+    "calculation",
+    "npm",
+    "node",
+    "nodejs",
+    "node.js",
+    "node-js",
+    "unit testing",
+    "jest",
+    "jestjs",
+    "node unit testing"
+  ],
+  "dependencies": {},
   "devDependencies": {
-    "chai": "^4.3.10",
-    "mocha": "^10.2.0"
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/register": "^7.22.15",
+    "babel-jest": "^27.0.6",
+    "jest": "^27.0.6"
   }
 }
