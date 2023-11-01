@@ -1,9 +1,8 @@
-import React from 'react'
 import { Card, Container } from 'react-bootstrap'
 
 export const Hero = () => {
   return (
-    <div className='py-5'>
+    <div>
         <Container className='d-flex justify-content-center align-items-center' style={{minHeight: '100vh'}}>
             <Card className='p-5 d-flex flex-column justify-content-center align-items-center'>
                 <h1 className='text-center'>Welcome to LinkedIn</h1>

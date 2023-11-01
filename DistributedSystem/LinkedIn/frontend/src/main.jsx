@@ -9,6 +9,7 @@ import { Homescreen } from './screens/Homescreen.jsx'
 import { Loginscreen } from './screens/Loginscreen.jsx'
 import { Registerscreen } from './screens/Registerscreen.jsx'
 import { Profilescreen } from './screens/Profilescreen.jsx'
+import { Postscreen } from './screens/Postscreen.jsx'
 import {PrivateRoute} from './components/PrivateRoute.jsx'
 import Dashboardscreen from './screens/Dashboardscreen.jsx'
 
@@ -20,6 +21,7 @@ const routes = createBrowserRouter(
       <Route path='' element={<PrivateRoute/>} >
         <Route path="/profile" element={<Profilescreen/>} />
         <Route path="/dashboard" element={<Dashboardscreen/>} />
+        <Route path="/post/:id" element={<Postscreen/>} />
       </Route>
       <Route index={true} path="/" element={<Homescreen />} />
       {/* <Route path="/profile" element={<Profilescreen/>} /> */}

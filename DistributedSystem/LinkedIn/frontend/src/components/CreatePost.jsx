@@ -39,6 +39,8 @@ export const CreatePost = () => {
             console.log(data)
             if(!data.error){
                 toast.success('Post Success')
+                setContent('')
+                setSelectedFile(null)
                 navigate('/dashboard')
             }
             else{

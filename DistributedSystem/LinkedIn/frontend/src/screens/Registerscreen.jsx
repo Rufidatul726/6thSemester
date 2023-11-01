@@ -1,4 +1,3 @@
-import React from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import { Link ,  redirect} from 'react-router-dom'
@@ -48,7 +47,8 @@ export const Registerscreen = () => {
                 }
             }
             catch (error) {
-                toast.error('Register Failed')
+                console.log(error)
+                toast.error(error.data.message)
             }
         }
     }

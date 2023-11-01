@@ -1,4 +1,3 @@
-import React from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import { FormContainer } from '../components/FormContainer'
@@ -23,8 +22,8 @@ export const Profilescreen = () => {
     useEffect(() => {
         setName(userInfo.name)
         setEmail(userInfo.email)
-    }, [userInfo.setName, userInfo.setEmail])
-
+    }, [userInfo])
+    
     const submitHandler = async (e) =>{
         e.preventDefault()
         if(password !== confirmpassword){

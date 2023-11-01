@@ -1,4 +1,3 @@
-import React from 'react'
 import {useState, useEffect} from 'react'
 import { Form, Row } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'

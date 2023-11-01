@@ -1,16 +1,15 @@
 import { useEffect,useState } from "react"
-import { useSelector } from "react-redux" 
 import axios from "axios"
 import { Card } from "react-bootstrap"
+import { Link } from "react-router-dom"
 
 
 const Notification = () => {
   const [notifications, setNotifications] = useState([])
 
-  const userInfo = useSelector(state => state.auth.userInfo)
 
   const gotoPost = () => {
-    window.location.href = '/posts'
+    
   }
 
   const getNotifications = async () => {
@@ -31,13 +30,13 @@ const Notification = () => {
         <Card style={{ width: '18rem' }}>
           <Card.Body>
             <Card.Title>Notifications</Card.Title>
-            <Card.Text className="my-3" style={{ maxHeight: '200px', overflowY: 'scroll', backgroundColor: 'beige' }}>
-              {notifications.map(notification => (
-                <p key={notification._id} className="my-3" style={{ backgroundColor: 'lightblue' }}
-                onClick={gotoPost}
-                >{notification.message}</p>
-              ))}
-            </Card.Text>
+            {
+              notifications.map(notification => (
+                <Card.Text key={notification._id}>
+                  <Link to={`/post/${notification.postId}`} onClick={gotoPost}>{notification.senderName} {notification.message}</Link>
+                </Card.Text>
+              ))
+            }
           </Card.Body>
         </Card>
       </>
