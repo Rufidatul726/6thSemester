@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Post from "../models/postModel.js";
 import Notification from "../models/notificationModel.js";
-import { minioClient } from "../server.js";
+import { minioClient } from "../post_server.js";
 
 //@desc     Get all posts
 //@route    GET /api/posts

@@ -1,5 +1,4 @@
 import express from 'express';
-import { protect } from '../middleware/authMiddleware.js';
 import { getPosts, createPost, getPostById, getPostsExceptLoggedInUser} from '../controllers/postController.js';
 import multer from 'multer';
 const router = express.Router();
@@ -17,7 +16,7 @@ const upload = multer({ storage: storage });
 
 
 router.get('/', getPosts);
-router.post('/', protect, upload.single('image'), createPost);
+router.post('/', upload.single('image'), createPost);
 router.get('/createdby/:id', getPostsExceptLoggedInUser);
 router.get('/:id', getPostById);
 

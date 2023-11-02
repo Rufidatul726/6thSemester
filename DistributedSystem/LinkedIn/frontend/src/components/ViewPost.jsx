@@ -8,8 +8,7 @@ const ViewPost = () => {
 
     const fetchPosts = async () => {
         const user = JSON.parse(localStorage.getItem('userInfo'))
-        const res = await axios.get('http://localhost:8000/api/posts/createdby/'+user._id)
-
+        const res = await axios.get('http://localhost:8002/api/posts/createdby/'+user._id)
         setPosts(res.data)
     }
 

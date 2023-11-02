@@ -14,7 +14,7 @@ const Notification = () => {
 
   const getNotifications = async () => {
     try {
-      const { data } = await axios.get('/api/notifications')
+      const { data } = await axios.get('http://localhost:8003/api/notifications')
       console.log(data)
       setNotifications(data)
     } catch (error) {

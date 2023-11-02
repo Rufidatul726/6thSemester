@@ -8,9 +8,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
+    "user_start": "node user_backend/user_server.js",
+    "user_server": "nodemon user_backend/user_server.js",
+    "post_start": "node post_backend/post_server.js",
+    "post_server": "nodemon post_backend/post_server.js",
+    "notification_start": "node notification_backend/notification_server.js",
+    "notification_server": "nodemon notification_backend/notification_server.js",
     "client": "npm run dev --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run client\" \"npm run user_server\" \"npm run post_server\" \"npm run notification_server\""
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",

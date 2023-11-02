@@ -9,7 +9,7 @@ export const Postscreen = () => {
 
   useEffect(() => {
     const fetchPost = async () => {
-      const res = await axios.get('http://localhost:8000/api/posts/'+id)
+      const res = await axios.get('http://localhost:8002/api/posts/'+id)
       console.log(res.data)
       setPost(res.data)
     }
