@@ -4,8 +4,7 @@
     "ext": [
         {
             "_nodetype": "FuncDef",
-            "body": 
-            {
+            "body": {
                 "_nodetype": "Compound",
                 "block_items": null,
                 "coord": "test.c:1:1"
