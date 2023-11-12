@@ -1,20 +1,57 @@
-import React from 'react';
+import React, { useEffect , useState} from 'react';
 import './App.css';
-import TreeVisualization from './components/TreeVisualization';
+import Input from './components/Input';
+import Function from './components/Function';
+import IndependentClass from './components/IndependentClass';
 
 function App() {
-  const [response, setResponse] = React.useState(null);
-  React.useEffect(() => {
-    fetch('http://localhost:5000/')
-      .then(res => res.json())
-      .then(data => setResponse(data))
-      .catch(err => console.log(err));
-  }, []);
+  const [inputdata, setInputData] = useState([]);
+  const [functiondata, setFunctionData] = useState([]);
+  const columnStyle = {
+    flex: '1', 
+    padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    marginRight: '10px', 
+  };
 
+  useEffect(() => {
+    const extractdata = (data) => {
+      if(data.asts){
+        setInputData(data.asts);
+      }
+      if(data.functions){
+        setFunctionData(data.functions);
+      }
+    }
+
+    fetch('/func.json')
+      .then((response) => response.json())
+      .then((data) => {
+        extractdata(data);
+      })
+      .catch((error) => console.error('Error fetching data:', error));
+  },[]);
   return (
-    <div className="App">
-      <h1>Tree Visualization</h1>
-      <TreeVisualization {...response} />
+    <div className="App" style={{ display: 'flex' }}>
+      <div style={columnStyle}>
+        <h1>Control FLow Graph</h1>
+        {inputdata.map((data) => (
+          <Input inputdata={data}/>
+        ))
+        }
+      </div>
+      <div style={columnStyle}>
+        <h1>Function Code</h1>
+        {functiondata.map((data) => (
+          <Function functiondata={data}/>
+        ))
+        }
+      </div>
+      <div style={columnStyle}>
+        <h1>Write Dependedent Path and corresponding test cases </h1>
+        <IndependentClass />
+      </div>
     </div>
   );
 }
