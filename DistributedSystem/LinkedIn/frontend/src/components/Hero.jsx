@@ -9,7 +9,6 @@ export const Hero = () => {
                 <h3 className='text-center'>The LinkedIn Team</h3>
             </Card>
         </Container>
-        
     </div>
   )
 }
